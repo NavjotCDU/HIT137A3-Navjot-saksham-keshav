@@ -9,14 +9,24 @@ class MainWindow(tk.Frame):
         self._build()
 
     def _build(self):
-        # Task dropdown (empty for now)
+        # Top controls (task dropdown)
         top = tk.Frame(self, bg="#f6f6f6")
         top.pack(fill="x", padx=10, pady=10)
 
         tk.Label(top, text="Select Task:", font=("Segoe UI", 10)).pack(side="left")
+
         self.task_var = tk.StringVar()
-        self.task_combo = ttk.Combobox(top, textvariable=self.task_var, state="readonly", values=[])
+        self.task_combo = ttk.Combobox(
+            top,
+            textvariable=self.task_var,
+            state="readonly",
+            values=self.controller.list_tasks()
+        )
         self.task_combo.pack(side="left", padx=5)
+
+        # Default selection if tasks exist
+        if self.controller.list_tasks():
+            self.task_combo.current(0)
 
         # Input panel
         tk.Label(self, text="Input:", font=("Segoe UI", 10, "bold")).pack(anchor="w", padx=10, pady=(10, 0))
