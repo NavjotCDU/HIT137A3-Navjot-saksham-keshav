@@ -1,10 +1,17 @@
 from tkinter import Tk
 from app.ui.main_window import MainWindow
 from app.controllers.app_controller import AppController
+from app.models.sentiment import SentimentModel   # Member 2 adds this
 
 def create_models_registry():
-    # Empty for now – Member 2 and 3 will add real models
-    return {}
+    # Member 2 integrates Sentiment Analysis model from Hugging Face
+    return {
+        "Sentiment Analysis": SentimentModel(
+            model_id="distilbert-base-uncased-finetuned-sst-2-english",
+            task="sentiment-analysis",
+            brief="Binary sentiment classifier fine-tuned on SST-2 dataset."
+        )
+    }
 
 def main():
     root = Tk()
